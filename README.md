@@ -4,11 +4,13 @@
 
 Speed2GC is an Android app that transfers Speediance workouts to Garmin Connect as FIT activities. It also exports FIT files without a Garmin upload and imports existing FIT files into Garmin Connect.
 
-**Status: Beta.** Check your first transferred activities in Garmin Connect and read the notes for the APK version you install.
+**Documentation version: 0.1.32-beta · Android 8.0 or later.**
+
+Speed2GC is in beta. Check your first transferred activities in Garmin Connect and read the release notes before updating.
 
 ## Download and install
 
-Download an APK from [Releases](https://github.com/wp2026dev/Speed2GC/releases). Open the release and select `Speed2GC-<version>.apk` under **Assets**. Beta releases are marked **Pre-release**.
+Download the APK for the version you want from [Releases](https://github.com/wp2026dev/Speed2GC/releases). Open the release and select `Speed2GC-<version>.apk` under **Assets**. Beta releases are marked **Pre-release**.
 
 Android **8.0 or later** is required. Allow your browser or file manager to install the APK if Android prompts you. For updates, install over the existing Speed2GC app to retain settings and local transfer records.
 
@@ -26,13 +28,10 @@ Speediance is the workout source. A Garmin sign-in is needed for Garmin uploads,
 
 Automatic background sync is optional. Enable it under Synchronization and keep Speediance's background participation enabled. Android controls execution timing and may delay runs. Opening the app does not trigger a separate app-launch sync; a due background job can run while the app is open. Current Garmin sync progress and Stop are shown on Home.
 
-### Planned interface update (S2GC-0099)
+### Reset sync status
 
-The following changes are planned and are **not included in 0.1.31-beta**. Check future APK release notes before following these locations:
-
-- **Reset sync status** will move into **Settings → Synchronization**. It will appear only after a fully successful sync, including a run where all activities were already present. A failed or cancelled first sync, FIT export or diagnostic export will not reveal it. After resetting, it will remain hidden until another successful sync.
+- **Reset sync status** is in **Settings → Synchronization**. It appears only after a fully successful sync, including a run where all activities were already present. A failed or cancelled first sync does not reveal it. FIT exports, manual FIT imports and diagnostic exports do not reveal it either. After resetting, it remains hidden until another successful sync.
 - After confirmation, resetting clears local upload records, saved source results and the last successful sync time, and discards pending file selections and internal queue files. History, sign-ins, settings, exported FIT files and the technical log remain. Garmin activities are not deleted. Check Garmin before allowing another sync because differently generated files can cause duplicates.
-- **View log** will show a red **Clear log** button directly in the log view, without an additional card. Clearing removes local logs, not history, synchronization records or saved diagnostic packages. New entries can appear while Diagnostic mode remains enabled; disable the mode to stop further logging.
 
 ## FIT export and import
 
@@ -50,9 +49,15 @@ Create an [issue](https://github.com/wp2026dev/Speed2GC/issues) and include:
 - Expected and actual behavior, including the error message.
 - The affected workout date/type where relevant, without unnecessary personal information.
 
-### Create a diagnostic package
+### Diagnostics and the technical log
 
-These instructions apply to **0.1.31-beta and later versions that include Diagnostics**; check the APK's release notes for availability.
+The **Diagnostics** card is in Settings directly above **About**. Diagnostic mode is enabled by default when no preference has been saved. An explicit choice is retained after restarting or updating the app.
+
+**View log** opens the local technical log. A red **Clear log** button is available directly in this view, without an additional card. It deletes local log files while retaining history, synchronization records and saved diagnostic packages. New entries can appear while Diagnostic mode remains enabled.
+
+Disabling Diagnostic mode stops new logging and hides **View log** and **Create diagnostic package**. Existing logs are retained. Workout JSON is collected only when you manually create a diagnostic package.
+
+### Create a diagnostic package
 
 1. Open **Settings → Diagnostics** (**Einstellungen → Diagnose**).
 2. Enable **Diagnostic mode** if it is off. With no saved preference it defaults to on; your explicit choice is retained.
@@ -66,7 +71,7 @@ The package contains retrieved Speediance workout JSON, related newly generated 
 
 If package creation fails, include the visible error message in your issue. Do not reset sync records as a troubleshooting step.
 
-**View log** opens the local protocol and lets you clear it. Disabling Diagnostic mode stops new logging and hides both diagnostic actions; existing logs are retained. Packages are created only manually and are never sent automatically. Delete externally saved ZIPs separately when no longer needed.
+Packages are created only manually and are never sent automatically. Delete externally saved ZIPs separately when no longer needed. Clearing the log, signing out or uninstalling the app does not remove these saved packages.
 
 ## Beta limitations and transfer safety
 
